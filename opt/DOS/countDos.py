@@ -11,18 +11,19 @@ acustic = acustic1.tolist() + acustic2.tolist() + acustic3.tolist()
 minf = min(acustic) * 0.188369895509244
 maxf = max(acustic) * 0.188369895509244
 detf = (minf + maxf)/1000
+detfExpand = 20 * detf
 
-nDos = [(x*0.188369895509244)//(detf) for x in acustic]
+nDos = [(x*0.188369895509244)//detfExpand for x in acustic]
 result = pd.value_counts(nDos)
 freq1 = result.index.values
-freq = np.array([detf*x for x in freq1])
+freq = np.array([detfExpand * x for x in freq1])
 
 val = np.array(result.tolist())
 sumVal = sum(val)
-dosVal = np.array([3*x/(detf*sumVal) for x in val])
+dosVal = np.array([3*x/(detfExpand * sumVal) for x in val])
 combined = list(np.vstack((freq, dosVal)).T)
-add =[[i*detf, 0] for i in range(1000) if float(i) not in freq1]
-combined = combined+ add
+# add =[[i*detf, 0] for i in range(1000) if float(i) not in freq1]
+combined = combined
 combined.sort(key=lambda x: x[0])
 np.savetxt('SlackModelOutput/Slack.Dos',combined)
 

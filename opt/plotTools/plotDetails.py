@@ -1,8 +1,11 @@
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+plt.rc('font',family='Times New Roman', size=24)
 import pandas as pd
 
 def plotDetail():
-    a = pd.read_table('../../SlackModelOutput/Slack.detail', sep='\s+', header=None, engine='python')
+    a = pd.read_table('SlackModelOutput/Slack.detail', sep='\s+', header=None, engine='python')
 
     omegaQe = a.loc[:,0]
     omegaQe = omegaQe.tolist()
@@ -57,23 +60,26 @@ def plotDetail():
     plt.show()
 
 def plotDos():
-    a = pd.read_table('../../SlackModelOutput/Slack.Dos', sep='\s+', header=None, engine='python')
+    a = pd.read_table('SlackModelOutput/Slack.Dos', sep='\s+', header=None, engine='python')
 
     omegaQe = a.loc[:, 0]
     omegaQe = omegaQe.tolist()
+    omegaQe = [ i/0.188369895509244 * 0.02998 for i in omegaQe]
 
     DosQe = a.loc[:, 1]
     DosQe = DosQe.tolist()
 
-    plt.figure(1)
+    plt.figure(figsize=(8,7))
     ax1 = plt.subplot(111)
-    ax1.plot(omegaQe, DosQe, '.', label="Qe")
-    # ax1.plot(omegaQe, DosQe, '.')
+    # ax1.plot(omegaQe, DosQe, '-', label="Qe")
+    ax1.plot(omegaQe, DosQe, '-', color="black")
 
-    ax1.legend(loc=0)
-    ax1.set_xlabel('Omega')
-    ax1.set_ylabel('Dos')
-    plt.show()
+    # ax1.legend(loc=0)
+    ax1.set_xlabel('Frequency(THz)')
+    ax1.set_ylabel('DOS')
+    # plt.show()
+    plt.savefig('SlackModelOutput/DosCurve.png',  bbox_inches='tight')
+    # plt.savefig('/Users/apple/Desktop/DosCurve.png', bbox_inches='tight')
 
 def main():
     plotDos()
