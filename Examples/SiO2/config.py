@@ -4,5 +4,5 @@ configs = {
 	"temperature": 300,
 	"gru_ave23": [1.9778,1.9778,0.99356],
 	"V": 1.1324994110707298e-28,
-	"lattice_constants": [0.4921, 0.4921, 0.5400]
+	"lattice_constants": [0.4921, 0.4921, 0.5400] # 单位是nm
 }
