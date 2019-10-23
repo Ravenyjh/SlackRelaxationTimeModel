@@ -14,7 +14,7 @@ import config
 def generateAccumulateK(omegaQe,cphQe,gvQe,scatteringRateQe,mesh):
     meanFreePathDependedK = []
     for i in range(len(omegaQe)):
-        meanFreePath = math.fabs(gvQe[i]) / scatteringRateQe[i]
+        meanFreePath = math.fabs(gvQe[i] * 1E3) / scatteringRateQe[i]
         k_modelx = cphQe[i] * (gvQe[i] * 1E3) ** 2 / (scatteringRateQe[i] * mesh)
         meanFreePathDependedK.append([meanFreePath, k_modelx])
     meanFreePathDependedK.sort(key=lambda x: x[0])
@@ -24,7 +24,7 @@ def generateAccumulateK(omegaQe,cphQe,gvQe,scatteringRateQe,mesh):
         k_modelx += meanFreePathDependedK[i][1]
         accumulateFun.append([meanFreePathDependedK[i][0], k_modelx])
 
-    meanFreePath = [x[0]*1E9 for x in accumulateFun]
+    meanFreePath = [x[0]*1E6 for x in accumulateFun] # 将单位从m变成nm
     accumulateK = [x[1] for x in accumulateFun]
     return meanFreePath,accumulateK
 
@@ -34,7 +34,6 @@ def plotAccumate(config):
 
     mesh = config.configs['mesh'][0] * config.configs['mesh'][1] * config.configs['mesh'][2]
     a = pd.read_table('SlackModelOutput/Slack.detail', sep='\s+', header=None, engine='python')
-
 
     omegaQe = a.loc[:, 0]
     omegaQe = omegaQe.tolist()
@@ -59,7 +58,7 @@ def plotAccumate(config):
 
     ax1.set_xlim(0, (minMeanFreePath + maxMeanFreePath)/2)
     ax1.legend(loc=0)
-    ax1.set_xlabel('Mean free path (nm)')
+    ax1.set_xlabel('Mean free path (um)')
     ax1.set_ylabel('Cumulative thermal conductivity (W/(m-K)')
     plt.savefig('SlackModelOutput/CumulativeK.png', bbox_inches='tight')
 
@@ -141,7 +140,7 @@ def plotDos():
     # plt.savefig('/Users/apple/Desktop/DosCurve.png', bbox_inches='tight')
 
 def main():
-    # plotDos()
+    plotDos()
 	# plotDetail()
 	plotAccumate(config)
 
