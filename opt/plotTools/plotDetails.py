@@ -53,11 +53,11 @@ def plotAccumate(config):
         if meanFreePath[-1] > maxMeanFreePath:
             maxMeanFreePath = meanFreePath[-1]
         label = ['kxx', 'kyy', 'kzz']
-        ax1.plot(meanFreePath, accumulateK, '-', label=label[direction])
-        #ax1.plot(meanFreePath, accumulateK, '.')
+        # ax1.plot(meanFreePath, accumulateK, '-', label=label[direction])
+        ax1.plot(meanFreePath, accumulateK, '-')
 
     ax1.set_xlim(0, (minMeanFreePath + maxMeanFreePath)/2)
-    ax1.legend(loc=0)
+    # ax1.legend(loc=0)
     ax1.set_xlabel('Mean free path (um)')
     ax1.set_ylabel('Cumulative thermal conductivity (W/(m-K)')
     plt.savefig('SlackModelOutput/CumulativeK.png', bbox_inches='tight')
@@ -129,10 +129,10 @@ def plotDos():
 
     plt.figure(figsize=(8,7))
     ax1 = plt.subplot(111)
-    # ax1.plot(omegaQe, DosQe, '-', label="Qe")
-    ax1.plot(omegaQe, DosQe, '.', color="black")
+    ax1.plot(omegaQe, DosQe, '-', label="Qe")
+    # ax1.plot(omegaQe, DosQe, '.', color="black")
 
-    # ax1.legend(loc=0)
+    ax1.legend(loc=0)
     ax1.set_xlabel('Frequency(THz)')
     ax1.set_ylabel('DOS')
     # plt.show()
@@ -142,6 +142,6 @@ def plotDos():
 def main():
     plotDos()
 	# plotDetail()
-	plotAccumate(config)
+    plotAccumate(config)
 
 main()
