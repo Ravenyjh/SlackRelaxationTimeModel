@@ -83,7 +83,7 @@ def tau_model(file, config):
                 cph = k_B * x_var ** 2 * math.exp(x_var) / (math.exp(x_var) - 1.0) ** 2 / V
             else:
                 cph = 0.0
-            if omega_full[ii][jj] > 0:
+            if omega_full[ii][jj]*1E-12 > 0.01:
                 detail.append([omega_full[ii][jj]*1E-12, cph, gv1[ii][jj], gv2[ii][jj], gv3[ii][jj], (coeffx * omega_full[ii][jj] ** 2),
                                 (coeffy * omega_full[ii][jj] ** 2), (coeffz * omega_full[ii][jj] ** 2)])
                 k_modelx = k_modelx + cph * (gv1[ii][jj] * 1E3) ** 2 / ((coeffx * omega_full[ii][jj] ** 2))

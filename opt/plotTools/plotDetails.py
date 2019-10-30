@@ -1,7 +1,7 @@
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-plt.rc('font',family='Times New Roman', size=24)
+import matplotlib.pylab as pylab
 import pandas as pd
 import math
 import os
@@ -10,6 +10,10 @@ lib_path = os.path.abspath(os.path.join('.'))
 sys.path.append(lib_path)
 import config
 
+params = config.params
+
+pylab.rcParams.update(params)
+#plt.rc('font',family='Times New Roman', size=config.configs['labelSize'])
 
 def generateAccumulateK(omegaQe,cphQe,gvQe,scatteringRateQe,mesh):
     meanFreePathDependedK = []
@@ -29,7 +33,7 @@ def generateAccumulateK(omegaQe,cphQe,gvQe,scatteringRateQe,mesh):
     return meanFreePath,accumulateK
 
 def plotAccumate(config):
-    plt.figure(figsize=config.configs['figSize'])
+    plt.figure()
     ax1 = plt.subplot(111)
 
     mesh = config.configs['mesh'][0] * config.configs['mesh'][1] * config.configs['mesh'][2]
@@ -127,12 +131,13 @@ def plotDos():
     DosQe = a.loc[:, 1]
     DosQe = DosQe.tolist()
 
-    plt.figure(figsize=(8,7))
+    #plt.figure(figsize=config.configs['figSize'])
     ax1 = plt.subplot(111)
-    ax1.plot(omegaQe, DosQe, '-', label="Qe")
+    ax1.plot(omegaQe, DosQe, '-')
     # ax1.plot(omegaQe, DosQe, '.', color="black")
 
-    ax1.legend(loc=0)
+    # ax1.legend(loc=0)
+    #ax1.tick_params(labelsize=config.configs['labelSize'])
     ax1.set_xlabel('Frequency(THz)')
     ax1.set_ylabel('DOS')
     # plt.show()
@@ -140,7 +145,7 @@ def plotDos():
     # plt.savefig('/Users/apple/Desktop/DosCurve.png', bbox_inches='tight')
 
 def main():
-    plotDos()
+    # plotDos()
 	# plotDetail()
     plotAccumate(config)
 
