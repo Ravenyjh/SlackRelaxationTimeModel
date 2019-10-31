@@ -15,6 +15,6 @@
 
 可以选择不使用使用Docker，需要使用python3.7，且需要安装Dockerfile中所示的相关包
 
-3. 需要的输入文件和参数参考Example中的例子
+3. 需要的输入文件和参数参考为config.py(用于设置材料参数)，configPlot.py(用于设置画图参数),freq（qe得到的q点等信息的输入文件）,Slack.* (画图的输入文件，用klemens_model-qeinput.pys生成),Example中的例子
 
 4. 由于Slack relaxaction time 中弛豫时间和频率为倒数关系，所以如果出现非常低频率的点就会导致该点的热导率异常大，为避免这样的情况，程序将去除非常低频率的点
