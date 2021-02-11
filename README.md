@@ -1,6 +1,6 @@
 使用Slack relaxation time model计算声子热导率，需要频率文件和Gruneisen 作为输入，中间过程会输出Debye temperature, density of state, group velocity等参数。
 
-可以选择使用Docker，避免自己安装依赖
+可以选择使用Docker，避免自己安装依赖 
 	1. 安装docker后执行以下命令
 		1.1 docker build -t SlackModel .
 		1.2 docker container run -it SlackModel /bin/bash 
